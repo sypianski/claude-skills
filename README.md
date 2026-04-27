@@ -48,6 +48,12 @@ Some skills need external tools or per-machine config. Read the skill's own `SKI
 
 For `himalaya` specifically: you need the [`himalaya`](https://pimalaya.org/himalaya/) CLI configured at `~/.config/himalaya/config.toml` with at least one IMAP account, plus `python3 -m markdown` (or `pandoc`) for the markdown→HTML rendering step.
 
+## Skills published elsewhere
+
+Some of my skills live in their own repos rather than this collection:
+
+- [`taskestro`](https://github.com/sypianski/taskestro) — parallel-task orchestration: parses `TODO.md`, creates a git worktree per task in `.worktrees/<slug>`, launches a tmux window running Claude Code per worktree, with a fish-side `task-monitor` companion for live status. Skill name in `~/.claude/skills/` is `task-orchestrator`.
+
 ## Contributing
 
 Issues and PRs welcome. Sanitise before pushing — no real email addresses, secrets, or hostnames.
