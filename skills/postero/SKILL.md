@@ -1,11 +1,11 @@
 ---
-name: himalaya
-description: Read, search, and draft email via the himalaya CLI across all configured IMAP accounts. NEVER sends — only saves drafts to the user's Drafts folder for them to send manually. Use when the user asks to check email, search for messages, write a reply, or draft a new message. Activates on /himalaya or intents like "check my mail", "draft a reply to X", "any new email from Y".
+name: postero
+description: Read, search, and draft email via the himalaya CLI across all configured IMAP accounts. NEVER sends — only saves drafts to the user's Drafts folder for them to send manually. Use when the user asks to check email, search for messages, write a reply, or draft a new message. Activates on /postero or intents like "check my mail", "draft a reply to X", "any new email from Y".
 metadata:
   short-description: Read mail and save drafts via himalaya (no sending)
 ---
 
-# Himalaya Email
+# Postero
 
 Read, search, and draft email via the [`himalaya`](https://pimalaya.org/himalaya/) CLI. Multi-account: **always check all configured accounts unless the user names one**. **Never send — only save drafts.** User clicks send themselves from their mail client.
 
@@ -89,7 +89,7 @@ Every draft body is `multipart/alternative`:
 
 Order matters: HTML must be the **last** part — clients pick the last alternative they understand.
 
-Render with Python `markdown` (`pip install markdown` if missing). Use extensions `extra`, `sane_lists`, `tables`, `fenced_code` so `**bold**`, lists, tables, and code fences all work. For GFM specifics (task lists, autolinks, strikethrough), prefer `pandoc -f gfm -t html`.
+Render with Python `markdown` (`pip install markdown` if missing). Use extensions `extra`, `sane_lists`, `tables`, `fenced_code`, **`nl2br`** so `**bold**`, lists, tables, code fences, and single-line breaks all work. Without `nl2br`, prose written one sentence per line collapses into one paragraph in HTML. For GFM specifics (task lists, autolinks, strikethrough), prefer `pandoc -f gfm -t html`.
 
 The body builder below is the canonical helper — copy it verbatim, fill in headers/body/account/folder, then save.
 
@@ -118,7 +118,7 @@ The body builder below is the canonical helper — copy it verbatim, fill in hea
 
    html_inner = markdown.markdown(
        md_body,
-       extensions=["extra", "sane_lists", "tables", "fenced_code"],
+       extensions=["extra", "sane_lists", "tables", "fenced_code", "nl2br"],
    )
    html_doc = f"""<!doctype html><html><head><meta charset="utf-8"></head><body>{html_inner}</body></html>"""
 
@@ -219,6 +219,6 @@ Body still goes through the markdown→HTML multipart/alternative builder. Repli
 
 ## Examples
 
-- `/himalaya any mail from john today?` → loop accounts, `envelope list ... "after <today> and from john"`, summarise.
-- `/himalaya draft a reply to envelope 1873 in <account> saying I'll be there at 6` → fetch parent, build reply with In-Reply-To + References, show body, save to `<account> / <DraftsFolder>`.
-- `/himalaya new mail to alice@x.com subject "lunch?" body "free thursday?"` → build .eml, ask which account to send from (default first one), save to that account's Drafts.
+- `/postero any mail from john today?` → loop accounts, `envelope list ... "after <today> and from john"`, summarise.
+- `/postero draft a reply to envelope 1873 in <account> saying I'll be there at 6` → fetch parent, build reply with In-Reply-To + References, show body, save to `<account> / <DraftsFolder>`.
+- `/postero new mail to alice@x.com subject "lunch?" body "free thursday?"` → build .eml, ask which account to send from (default first one), save to that account's Drafts.

@@ -1,0 +1,31 @@
+{
+  "_comment": "Copy the contents of \"permissions.deny\" below into your ~/.claude/settings.json under permissions.deny. The patterns block both ~/privata/ and the literal-resolved /home/<you>/privata/ form, since Claude Code does not normalize ~ in deny rules. Adjust /home/<you>/ to your actual username.",
+  "permissions": {
+    "deny": [
+      "Read(~/privata/**)",
+      "Read(/home/<you>/privata/**)",
+      "Bash(cat ~/privata/*)",
+      "Bash(cat /home/<you>/privata/*)",
+      "Bash(head ~/privata/*)",
+      "Bash(head /home/<you>/privata/*)",
+      "Bash(tail ~/privata/*)",
+      "Bash(tail /home/<you>/privata/*)",
+      "Bash(less ~/privata/*)",
+      "Bash(less /home/<you>/privata/*)",
+      "Bash(more ~/privata/*)",
+      "Bash(more /home/<you>/privata/*)",
+      "Bash(grep * ~/privata/*)",
+      "Bash(grep * /home/<you>/privata/*)",
+      "Bash(rg * ~/privata/*)",
+      "Bash(rg * /home/<you>/privata/*)",
+      "Bash(find ~/privata*)",
+      "Bash(find /home/<you>/privata*)",
+      "Bash(ls ~/privata*)",
+      "Bash(ls /home/<you>/privata*)",
+      "Bash(cp ~/privata/*)",
+      "Bash(cp /home/<you>/privata/*)",
+      "Bash(mv ~/privata/*)",
+      "Bash(mv /home/<you>/privata/*)"
+    ]
+  }
+}
